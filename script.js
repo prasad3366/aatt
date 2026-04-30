@@ -265,6 +265,17 @@ const on  = (el, ev, cb, opts) => el && el.addEventListener(ev, cb, opts);
 })();
 
 /* ──────────────────────────────
+   8.1 LOCAL URL CLEANUP
+   ────────────────────────────── */
+(function cleanLocalUrl() {
+  if (!window.location.hostname || !window.history.replaceState) return;
+  const origin = window.location.origin;
+  if (window.location.href !== origin) {
+    window.history.replaceState(null, '', origin);
+  }
+})();
+
+/* ──────────────────────────────
    9. JOIN MAP NAVIGATION
    ────────────────────────────── */
 (function initJoinMapNavigation() {
