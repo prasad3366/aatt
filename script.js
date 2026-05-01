@@ -170,6 +170,57 @@ const on  = (el, ev, cb, opts) => el && el.addEventListener(ev, cb, opts);
 })();
 
 /* ──────────────────────────────
+   4.1 LEADERSHIP AUTO SCROLL
+   ────────────────────────────── */
+(function initLeadershipAutoScroll() {
+  const container = qs('.leaders-grid');
+  if (!container) return;
+
+  const cards = qsa('.leader-card', container);
+  if (cards.length <= 3) return;
+
+  let currentIndex = 0;
+  let autoTimer = null;
+
+  const scrollToCard = (index) => {
+    const card = cards[index];
+    if (!card) return;
+    const paddingLeft = parseInt(getComputedStyle(container).paddingLeft, 10) || 0;
+    container.scrollTo({
+      left: card.offsetLeft - paddingLeft,
+      behavior: 'smooth'
+    });
+  };
+
+  const nextCard = () => {
+    currentIndex = (currentIndex + 1) % cards.length;
+    scrollToCard(currentIndex);
+  };
+
+  const start = () => {
+    if (autoTimer) clearInterval(autoTimer);
+    autoTimer = setInterval(nextCard, 3000);
+  };
+
+  const init = () => {
+    currentIndex = 0;
+    container.scrollLeft = 0;
+    if (container.scrollWidth > container.clientWidth) {
+      start();
+    } else if (autoTimer) {
+      clearInterval(autoTimer);
+    }
+  };
+
+  on(container, 'mouseenter', () => clearInterval(autoTimer));
+  on(container, 'mouseleave', () => start());
+
+  window.addEventListener('load', init);
+  window.addEventListener('resize', init);
+  init();
+})();
+
+/* ──────────────────────────────
    5. HERO PARTICLES
    ────────────────────────────── */
 (function initParticles() {

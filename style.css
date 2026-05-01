@@ -227,6 +227,30 @@ input, textarea, select { font-family: inherit; font-size: 0.95rem; outline: non
   max-width: 600px; margin: 0 auto;
 }
 
+.leadership-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 32px;
+}
+.leadership-item {
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: var(--shadow-sm);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.leadership-item h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+}
+
 /* ═══════════════════════════════
    PRELOADER
    ═══════════════════════════════ */
@@ -1044,16 +1068,23 @@ input, textarea, select { font-family: inherit; font-size: 0.95rem; outline: non
 }
 
 .leaders-grid {
-  display: grid; gap: 24px;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding-left: 8px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-@media (min-width: 900px) {
-  .leaders-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (min-width: 1100px) {
-  .leaders-grid { grid-template-columns: repeat(4, 1fr); }
+.leaders-grid::-webkit-scrollbar {
+  display: none;
 }
 .leader-card {
+  flex: 0 0 calc((100% - 48px) / 3);
+  max-width: 360px;
+  min-width: 280px;
+  scroll-snap-align: start;
   background: var(--white);
   border-radius: var(--radius-xl);
   padding: 32px 20px; text-align: center;
@@ -1084,11 +1115,13 @@ input, textarea, select { font-family: inherit; font-size: 0.95rem; outline: non
 .leader-card--main .leader-name { color: var(--white); }
 .leader-card--main .leader-badge { background: var(--gold-500); color: var(--blue-dark); }
 .leader-img-wrap {
-  width: 100px; height: 100px; margin: 0 auto 14px;
+  width: 100px; height: 100px; margin: 0 auto 24px;
   position: relative;
+  line-height: 0;
 }
 .leader-card--main .leader-img-wrap { width: 120px; height: 120px; }
 .leader-img {
+  display: block;
   width: 100%; height: 100%;
   object-fit: cover; border-radius: 50%;
   border: 3px solid var(--gold-500);
@@ -1096,6 +1129,12 @@ input, textarea, select { font-family: inherit; font-size: 0.95rem; outline: non
   transition: transform var(--transition);
 }
 .leader-card:hover .leader-img { transform: scale(1.04); }
+.leader-profession {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 6px 0 12px;
+  line-height: 1.5;
+}
 .leader-img-decor {
   position: absolute; inset: -6px;
   border: 2px dashed rgba(201,163,78,0.4);
