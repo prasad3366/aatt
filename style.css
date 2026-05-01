@@ -321,6 +321,11 @@ input, textarea, select { font-family: inherit; font-size: 0.95rem; outline: non
   background: transparent;
   z-index: 2;
 }
+.footer-logo .logo-emblem img {
+  width: 72px;
+  height: auto;
+  max-height: 72px;
+}
 .logo-text {
   display: flex; flex-direction: column;
   justify-content: center;
